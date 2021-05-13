@@ -16,7 +16,7 @@ export interface Beach {
   user: string;
 }
 
-export interface BeachForecast extends Omit<Beach, 'user'>, ForecastPoint { }
+export interface BeachForecast extends Omit<Beach, 'user'>, ForecastPoint {}
 
 export interface TimeForecast {
   time: string;
@@ -25,11 +25,11 @@ export interface TimeForecast {
 
 export class ForecastProcessingInternalError extends InternalError {
   constructor(message: string) {
-    super(`Unexpected error during the forecast processing: ${message}`)
+    super(`Unexpected error during the forecast processing: ${message}`);
   }
 }
 export class Forecast {
-  constructor(protected stormGlass = new StormGlass()) { }
+  constructor(protected stormGlass = new StormGlass()) {}
 
   public async processForecastForBeaches(
     beaches: Beach[]
@@ -47,7 +47,10 @@ export class Forecast {
     }
   }
 
-  private enrichedBeachData(points: ForecastPoint[], beach: Beach): BeachForecast[] {
+  private enrichedBeachData(
+    points: ForecastPoint[],
+    beach: Beach
+  ): BeachForecast[] {
     return points.map((e) => ({
       ...{},
       ...{
