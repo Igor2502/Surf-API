@@ -1,6 +1,6 @@
+import './util/module-alias';
 import { Server } from '@overnightjs/core';
 import bodyParser from 'body-parser';
-import './util/module-alias';
 import { ForecastController } from './controllers/forecast';
 import { Application } from 'express';
 import * as database from '@src/database';
@@ -12,13 +12,14 @@ export class SetupServer extends Server {
   }
 
   public async init(): Promise<void> {
-    this.setupExpres();
+    this.setupExpress();
     this.setupController();
     await this.databaseSetup();
   }
 
-  private setupExpres(): void {
+  private setupExpress(): void {
     this.app.use(bodyParser.json());
+    this.setupController();
   }
 
   private setupController(): void {
@@ -37,5 +38,11 @@ export class SetupServer extends Server {
 
   public getApp(): Application {
     return this.app;
+  }
+
+  public start(): void {
+    this.app.listen(this.port, () => {
+      console.info('Server listening of port:', this.port);
+    });
   }
 }
