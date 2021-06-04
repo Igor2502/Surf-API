@@ -26,7 +26,7 @@ describe('Beach forecast functional tests', () => {
       userId: user.id,
     };
     await new Beach(defaultBeach).save();
-    token = AuthService.generateToken(user.toJSON());
+    token = AuthService.generateToken(user.id);
     CacheUtil.clearAllCache();
   });
 
