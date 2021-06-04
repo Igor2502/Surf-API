@@ -13,6 +13,7 @@ import * as database from '@src/database';
 import { ForecastController } from './controllers/forecast';
 import { BeachesController } from './controllers/beaches';
 import { UsersController } from './controllers/users';
+import { apiErrorValidator } from './middlewares/api-error-validator';
 
 export class SetupServer extends Server {
   constructor(private port = 3000) {
@@ -24,12 +25,17 @@ export class SetupServer extends Server {
     await this.docsSetup();
     this.setupController();
     await this.databaseSetup();
+    this.setupErrorHandlers();
   }
 
   private setupExpress(): void {
     this.app.use(bodyParser.json());
     this.app.use(expressPino({ logger }));
     this.app.use(cors({ origin: '*' }));
+  }
+
+  private setupErrorHandlers(): void {
+    this.app.use(apiErrorValidator);
   }
 
   private setupController(): void {
