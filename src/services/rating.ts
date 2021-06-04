@@ -17,9 +17,12 @@ const waveHeights = {
 };
 
 export class Rating {
-  constructor(private beach: Beach) { }
+  constructor(private beach: Beach) {}
 
-  public getRatingBasedOnWindAndWavePositions(waveDirection: GeoPosition, windDirection: GeoPosition): number {
+  public getRatingBasedOnWindAndWavePositions(
+    waveDirection: GeoPosition,
+    windDirection: GeoPosition
+  ): number {
     if (waveDirection === windDirection) {
       return 1;
     } else if (this.isWindOffShore(waveDirection, windDirection)) {
@@ -28,7 +31,10 @@ export class Rating {
     return 3;
   }
 
-  private isWindOffShore(waveDirection: string, windDirection: string): boolean {
+  private isWindOffShore(
+    waveDirection: string,
+    windDirection: string
+  ): boolean {
     return (
       (waveDirection === GeoPosition.N &&
         windDirection === GeoPosition.S &&
@@ -60,10 +66,16 @@ export class Rating {
   }
 
   public getRatingForSwellSize(height: number): number {
-    if (height >= waveHeights.ankleToKnee.min && height < waveHeights.ankleToKnee.max) {
+    if (
+      height >= waveHeights.ankleToKnee.min &&
+      height < waveHeights.ankleToKnee.max
+    ) {
       return 2;
     }
-    if (height >= waveHeights.waistHigh.min && height < waveHeights.waistHigh.max) {
+    if (
+      height >= waveHeights.waistHigh.min &&
+      height < waveHeights.waistHigh.max
+    ) {
       return 3;
     }
     if (height >= waveHeights.headHigh.min) {
@@ -93,11 +105,15 @@ export class Rating {
     const swellDirection = this.getPositionFromLocation(point.swellDirection);
     const windDirection = this.getPositionFromLocation(point.windDirection);
 
-    const windAndWaveRating = this.getRatingBasedOnWindAndWavePositions(swellDirection, windDirection);
+    const windAndWaveRating = this.getRatingBasedOnWindAndWavePositions(
+      swellDirection,
+      windDirection
+    );
     const swellHeightRating = this.getRatingForSwellSize(point.swellHeight);
     const swellPeriodRating = this.getRatingForSwellPeriod(point.swellPeriod);
 
-    const finalRating =(windAndWaveRating + swellHeightRating + swellPeriodRating) / 3;
+    const finalRating =
+      (windAndWaveRating + swellHeightRating + swellPeriodRating) / 3;
     return Math.round(finalRating);
   }
 }

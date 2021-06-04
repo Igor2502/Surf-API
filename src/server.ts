@@ -54,7 +54,7 @@ export class SetupServer extends Server {
     await new OpenApiValidator({
       apiSpec: apiSchema as OpenAPIV3.Document,
       validateRequests: true,
-      validateResponses: true
+      validateResponses: true,
     }).install(this.app);
   }
 

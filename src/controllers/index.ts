@@ -11,12 +11,17 @@ export abstract class BaseController {
   ): void {
     if (error instanceof mongoose.Error.ValidationError) {
       const clientErrors = this.handleClientErrors(error);
-      res
-        .status(clientErrors.code)
-        .send(ApiError.format({ code: clientErrors.code, message: clientErrors.error }));
+      res.status(clientErrors.code).send(
+        ApiError.format({
+          code: clientErrors.code,
+          message: clientErrors.error,
+        })
+      );
     } else {
-      logger.error(error)
-      res.status(500).send(ApiError.format({ code: 500, message: 'Something went wrong!' }));
+      logger.error(error);
+      res
+        .status(500)
+        .send(ApiError.format({ code: 500, message: 'Something went wrong!' }));
     }
   }
 

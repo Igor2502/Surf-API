@@ -24,10 +24,16 @@ export class UsersController extends BaseController {
     const user = await User.findOne({ email });
 
     if (!user) {
-      return this.sendErrorResponse(res, { code: 401, message: 'User not found!' })
+      return this.sendErrorResponse(res, {
+        code: 401,
+        message: 'User not found!',
+      });
     }
     if (!(await AuthService.comparePasswords(password, user.password))) {
-      return this.sendErrorResponse(res, { code: 401, message: 'Password does not match!' });
+      return this.sendErrorResponse(res, {
+        code: 401,
+        message: 'Password does not match!',
+      });
     }
 
     const token = AuthService.generateToken(user.toJSON());
@@ -41,7 +47,10 @@ export class UsersController extends BaseController {
     const user = await User.findOne({ email });
 
     if (!user) {
-      return this.sendErrorResponse(res, { code: 404, message: 'User not found!' });
+      return this.sendErrorResponse(res, {
+        code: 404,
+        message: 'User not found!',
+      });
     }
 
     return res.send({ user });

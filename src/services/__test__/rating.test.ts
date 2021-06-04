@@ -127,7 +127,6 @@ describe('Rating Service', () => {
     });
   });
 
-
   describe('Get rating based on swell period', () => {
     it('should get a rating of 1 for a period of 5 seconds', () => {
       const rating = defaultRating.getRatingForSwellPeriod(5);
@@ -150,7 +149,6 @@ describe('Rating Service', () => {
     });
   });
 
-
   describe('Get rating based on swell height', () => {
     it('should get rating 1 for less than ankle to knee high swell', () => {
       const rating = defaultRating.getRatingForSwellSize(0.2);
@@ -172,7 +170,6 @@ describe('Rating Service', () => {
       expect(rating).toBe(5);
     });
   });
-
 
   describe('Get position based on points location', () => {
     it('should get the point based on a east location', () => {

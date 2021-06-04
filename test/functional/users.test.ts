@@ -55,7 +55,8 @@ describe('Users functional test', () => {
       expect(response.body).toEqual({
         code: 409,
         error: 'Conflict',
-        message: 'User validation failed: email: already exists in the database.',
+        message:
+          'User validation failed: email: already exists in the database.',
       });
     });
   });
@@ -118,7 +119,9 @@ describe('Users functional test', () => {
       };
       const user = await new User(newUser).save();
       const token = AuthService.generateToken(user.toJSON());
-      const { body, status } = await global.testRequest.get('/users/me').set({ 'x-access-token': token });
+      const { body, status } = await global.testRequest
+        .get('/users/me')
+        .set({ 'x-access-token': token });
 
       expect(status).toBe(200);
       expect(body).toMatchObject(JSON.parse(JSON.stringify({ user })));
